@@ -383,13 +383,47 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    var result = [];
+    if (typeof functionOrKey === 'string') {
+      _.each(collection, function(item) {
+        result.push(item[functionOrKey].call(item));        
+      });
+    } else if (typeof functionOrKey === 'function') {
+      _.each(collection, function(item) {
+        result.push(functionOrKey.call(item));
+      });
+    }
+    return result;
+    
   };
 
-  // Sort the object's values by a criterion produced by an iterator.
+  //   the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    //run collection through iterator and make an array from that
+      //sort array .sort()
+      //
+      
+    
+ 
+    var newObj = {};
+    _.each(collection, function(item) {
+      //console.log([iterator(item)]);
+      newObj[iterator(item)] = item;
+    });
+    console.log(newObj);
+    var sortedArray = (Object.keys(newObj)).sort();
+    var result = {};
+    
+    _.each(sortedArray, function(item) {
+      console.log(result[item]);
+      result[item] = newObj[item];
+    });
+    console.log(result + 'result');
+    return result;
+    
   };
 
   // Zip together two or more arrays with elements of the same index
